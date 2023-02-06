@@ -1,4 +1,5 @@
 
+
 (function($) {
 
 	var	$window = $(window),
@@ -176,5 +177,85 @@
 						$menu._hide();
 
 			});
+
+
+	        let inputText = document.getElementById("input_text");
+            let resultDiv = document.getElementById("results");
+            let testText = document.getElementsByClassName("rand-words")[0].innerText;
+            let firstKeyPressed = false;
+            let timeStamps = [];
+            let userTexts = [];
+
+
+
+
+
+            function captureKeyDown(event){
+                let timestamp = (Date.now() / 1000);
+
+                inputText.addEventListener("input", function() {
+
+                    if (!firstKeyPressed && !event.repeat) {
+                    firstKeyPressed = true;
+
+                    console.log("First key pressed at:", timestamp);
+                }
+                userTexts.push(inputText.value);
+                lastItem = userTexts[userTexts.length - 1]
+                console.log(userTexts[userTexts.length - 1]);
+                captureInputValue(inputText.value, timestamp);
+                });
+            }
+
+
+            function captureInputValue(value, timestamp) {
+                timeStamps.push(timestamp)
+                let userArray = value.split(" ");
+                let testArray = testText.split(" ");
+                const newTimestamp = (Date.now() / 1000)
+
+                timeElapsed = (timeStamps[timeStamps.length - 1] - timeStamps[0]).toFixed(2);
+                if (userArray.length == testArray.length){
+                console.log(timeElapsed);
+                sendData(timeElapsed, userArray, testArray);
+
+                }
+            };
+
+            function sendData(time, userArray, testArray) {
+                finalText = userTexts[userTexts.length - 1];
+                console.log(finalText)
+                console.log("data sent: " + time + " " + finalText + " " + testArray)
+                const xhrPost = new XMLHttpRequest();
+                const data = {
+                    time: time,
+                    user: userArray,
+                    test: testArray
+                };
+                xhrPost.open("POST", "/receive_data", true);
+                xhrPost.setRequestHeader("Content-Type", "application/json");
+                xhrPost.onload = function() {
+                    if (this.status === 200) {
+                    try {
+                    const response = JSON.parse(this.responseText);
+                    console.log(this.responseText);
+                    console.log(response);
+                    document.getElementById("results").innerHTML = response.values;
+                    } catch(error) {
+                    console.error(error);
+                    }
+                  }
+                };
+                console.log(JSON.stringify(data));
+                xhrPost.send(JSON.stringify(data));
+
+
+
+            };
+
+            inputText.addEventListener("keydown", captureKeyDown);
+
+
+
 
 })(jQuery);

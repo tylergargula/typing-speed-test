@@ -3,7 +3,7 @@
 
 <html>
 	<head>
-		<title>Easily Add Watermarks to Your Photos | Watermark Express</title>
+		<title>Type Speed Test App | Tyler Gargula</title>
 		<meta charset="utf-8" />
 		<meta name="description" content="Protect your photos with Watermark Express, a free and easy-to-use watermark generator. Add custom text to any image in just a few clicks!">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -20,7 +20,7 @@
 
 							<!-- Logo -->
 								<a href="index.html" class="logo">
-									<span class="symbol"><img src="static/images/logo.svg" alt="" /></span><span class="title">Watermark Express</span>
+									<span class="symbol"><img src="static/images/logo.svg" alt="" /></span><span class="title">Type Speed Test</span>
 								</a>
 
 
@@ -34,28 +34,22 @@
 					<div id="main">
 						<div class="inner">
 							<header>
-								<h1>Protect your images in seconds, a free watermark<br />
-								generator created by <a href="https://www.linkedin.com/in/tylergargula/">Tyler Gargula</a>.</h1>
-								<p>Introducing Watermark Express, the fast and easy tool that allows you to protect your digital images from unauthorized use. Quickly create custom text watermarks and save images directly to your device.</p>
+								<h1>Type Speed Test App
+								created by <a href="https://www.linkedin.com/in/tylergargula/">Tyler Gargula</a>.</h1>
+								<p>Measure your test typing abilities and see how you stack up against the rest. <span class="truncated-text">Begin typing the words below to start and a score will provided once all 20 words are typed.</span></p>
 							</header>
 
 							<!-- Image Upload form -->
 							<section>
 								<form method="post" enctype="multipart/form-data" >
-									{{ form.hidden_tag() }}
-									{% for error in form.photo.errors %}
-									<span style="color: red;">{{ error }}</span>
-									{% endfor %}
+
 									<div class="fields">
 										<div class="field half">
-
-											<input type="text" name="watermark" id="watermark" placeholder="Enter Custom Watermark Text" />
+											<p class="rand-words">{{ words }}</p>
+											<input type="text" name="input_text" id="input_text" placeholder="Type the words above" />
+											<div id="results"></div>
 										</div>
 									</div>
-									<ul class="actions">
-										<li>{{ form.photo(class="custom-file-input") }}</li>
-										<li>{{ form.submit }}</li>
-									</ul>
 								</form>
 							</section>
 							{% if file_url %}
@@ -93,7 +87,7 @@
 								</ul>
 							</section>
 							<ul class="copyright">
-								<li>&copy; <a href="https://tylergargula.dev/" target="_blank">Tyler Gargula.</a>All rights reserved</li>
+								<li>&copy; <a href="https://tylergargula.dev/" target="_blank">Tyler Gargula. </a>All rights reserved</li>
 							</ul>
 						</div>
 					</footer>
@@ -106,6 +100,9 @@
 			<script src="static/assets/js/breakpoints.min.js"></script>
 			<script src="static/assets/js/util.js"></script>
 			<script src="static/assets/js/main.js"></script>
+
+
+
 
 	</body>
 </html>

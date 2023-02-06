@@ -183,6 +183,7 @@
             let resultDiv = document.getElementById("results");
             let testText = document.getElementsByClassName("rand-words")[0].innerText;
             let firstKeyPressed = false;
+            let timer;
             let timeStamps = [];
             let userTexts = [];
 
@@ -199,11 +200,16 @@
                     firstKeyPressed = true;
 
                     console.log("First key pressed at:", timestamp);
+
                 }
+                timeStamps.push(timestamp)
                 userTexts.push(inputText.value);
                 lastItem = userTexts[userTexts.length - 1]
                 console.log(userTexts[userTexts.length - 1]);
+                clearTimeout(timer)
+                timer = setTimeout(function() {
                 captureInputValue(inputText.value, timestamp);
+                }, 1000);
                 });
             }
 
@@ -213,6 +219,7 @@
                 let userArray = value.split(" ");
                 let testArray = testText.split(" ");
                 const newTimestamp = (Date.now() / 1000)
+                console.log("TimeStamps:" + timeStamps)
 
                 timeElapsed = (timeStamps[timeStamps.length - 1] - timeStamps[0]).toFixed(2);
                 if (userArray.length == testArray.length){
@@ -248,8 +255,6 @@
                 };
                 console.log(JSON.stringify(data));
                 xhrPost.send(JSON.stringify(data));
-
-
 
             };
 
